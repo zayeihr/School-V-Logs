@@ -1,70 +1,57 @@
-# Getting Started with Create React App
+# HQ Logistics Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is an app that is made to account for logistics in store taking as well as loaning between departments of an organisation.
 
-## Available Scripts
+# Features
+---
+**Current Features**:
+- User Login
+- List store items
+- Store items in DB
+- Add new items (admin only)
+- Edit and delete items (admin only)
+- Borrow items
+- Return items
+- Approve Loans (admin only) 
 
-In the project directory, you can run:
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# Tech
+---
+This app is built with the following technologies:
+- NodeJS
+- React
+- Firebase (Authentication, Database)
+- Formik (Forms Stuff)
 
-### `npm test`
+# Database Information
+---
+This project uses Firebase for authentication and database functions. The following are the descriptions of what each database table does:
+- Items
+    - Catalogue of all items in the organisation. Also lists number that are currently on loan.
+- On_loan
+    - Catalogue of loan requests by all users. Details item on loan, who it is borrowed by, and the quantity requested. It will also control whether a loan is approved or denied
+- Users
+    - All relevant information about users.
+    - IMPORTANT: the Firestore "Document ID" is the same as the user's UID stored in Firebase authentication
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+# Changelog
+--- 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+** 10/07/23 **
+- Bug fixes for loan and approval system
+- Added "Issue" item function: admin will now be able to issue items and deduct directly from the item's quantity
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+** 27/06/23 **
+- Initial Release
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+# Credits
+--- 
+This project uses different resources to Make Stuff work.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Material UI (https://mui.com/)
+- Firebase
+- ReactJS
