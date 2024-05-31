@@ -1,0 +1,136 @@
+import logo from '../logo.svg';
+import '../App.css';
+
+import { useAuthState } from 'react-firebase-hooks/auth'
+import React, { useEffect, useState } from 'react';
+import {db, auth} from '../firebase_config'
+import { TextField, Box, Button, Modal, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Dialog } from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid';
+import InfoIcon from '@mui/icons-material/Info';
+
+
+function BorrowItems(){
+    //TODO: FUNCTION TO BORROW ITEMS
+}
+
+
+function ItemsTable() {
+    //Style for the Modal Box
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        pt: 2,
+        px: 4,
+        pb: 3,
+    };
+
+    const [data, setData] = useState([]);
+    
+    const [selectedItem, setSelectedItem] = useState(null);
+
+    //Functions to set state to 
+    const handleOpenModal = (item) => {
+        setSelectedItem(item);
+    };
+    const handleCloseModal = () => {
+        setSelectedItem(null);
+    };
+
+    //Messing with DataTable
+    const columns = [
+        { field: 'name', headerName: 'Name', width: 200 },
+        { field: 'quantity', headerName: 'Quantity', width: 150 },
+        { field: 'category', headerName: 'Category', width: 200 },
+        {
+          field: 'actions',
+          headerName: 'Actions',
+          width: 150,
+          renderCell: (params) => (
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<InfoIcon />}
+              onClick={() => handleOpenModal(params.row)}
+            >
+              Details
+            </Button>
+          ),
+        },
+      ];
+
+    //Get ALL documents from 'items' collection
+    useEffect(() => {
+      // Get all documents from the 'items' collection
+      db.collection('items')
+        .get()
+        .then((querySnapshot) => {
+          const items = [];
+          querySnapshot.forEach((doc) => {
+            items.push({ id: doc.id, ...doc.data() });
+          });
+          setData(items);
+        });
+    }, []);
+
+    return (
+        <div>
+            <h2> All Items </h2>
+            <table>
+            <thead>
+                <tr>
+                <th>Item Name</th>
+                <th>Quantity</th>
+                <th>Category</th>
+                <th>On Loan</th>
+                </tr>
+            </thead>
+            <tbody>
+                {data.map((items) => (
+                <tr key={items.id}>
+                    <td>{items.name}</td>
+                    <td>{items.quantity}</td>
+                    <td>{items.category}</td>
+                    <td>{items.on_loan}</td>
+                    <td><Button variant="contained" color="primary" startIcon={<InfoIcon />} onClick={() => handleOpenModal(items)}>Loan</Button></td>
+                </tr>
+                ))}
+            </tbody>
+            </table>
+            
+            <div style={{ height: 400, width: '100%' }}>
+            <DataGrid
+                rows={data || []}
+                columns={columns}
+            /> </div>
+
+
+            {/*  Modal to handle loan quantities*/}
+            <Modal open={!!selectedItem} onClose={handleCloseModal}>
+                <Box sx={{ ...style, width: 400 }}>
+                    <div>
+                    {selectedItem && (
+                        <div>
+                        <h2>Loaning {selectedItem.name}</h2>
+                        <p>Category: {selectedItem.category}</p>
+                        <p>Quantity Available: {selectedItem.quantity}</p>
+                        <TextField id="outlined-basic" label="Quantity To Borrow" variant="outlined"/>
+                        <br></br>
+                        <Button>Submit</Button>
+                        </div>
+                    )}
+                    </div>
+                </Box>
+            </Modal>
+            
+        </div>
+    );
+    
+  }
+
+export default ItemsTable
