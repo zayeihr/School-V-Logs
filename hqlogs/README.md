@@ -1,6 +1,6 @@
 # HQ Logistics Application
 
-This is an app that is made to account for logistics in store taking as well as loaning between departments of an organisation.
+This is an app that was made to account for logistics in store taking as well as loaning between departments of an organisation.
 
 # Features
 ---
